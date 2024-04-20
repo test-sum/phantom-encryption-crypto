@@ -1,6 +1,6 @@
 # PHANTOM Cryptographic Encryption Algorithm
 
-## Overview
+### Overview
 
 PHANTOM is an implementation of a new post-quantum cryptographic algorithm based on the research of Dr. Luu Hong Dung, as detailed in his paper "THE POST-QUANTUM CRYPTOGRAPHIC ALGORITHM BASED ON OTP CIPHER AND HASH FUNCTIONS". It combines OTP-like security with practical applicability for arbitrary message lengths, aiming to be resistant against quantum attacks. Unlike traditional OTP which requires a key as long as the message, PHANTOM can encrypt messages and files larger than the key size, making it practical for real-world use.
 
