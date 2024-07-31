@@ -1,4 +1,4 @@
-# PHANTOM Cryptographic Algorithm
+# PHANTOM Cryptographic Encryption Algorithm
 
 ## Overview
 
