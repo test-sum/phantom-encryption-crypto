@@ -38,9 +38,8 @@ This implementation of PHANTOM provides a practical realization of Dr. Luu's the
 
 Prebuilt standalone binaries (with all dependencies included) are available for Debian 12 and should work on Ubuntu and other similar distributions.
 
-1. Download the prebuilt binaries from the [releases page](#).
-2. Extract the archive.
-3. Run the binaries directly.
+1. Download the prebuilt binaries from the 'build' folder.
+2. Run the binaries directly.
 
 ### Building from Source
 
@@ -55,7 +54,7 @@ Prebuilt standalone binaries (with all dependencies included) are available for 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/phantom.git
+   git clone https://github.com/test-sum/phantom.git
    cd phantom
    ```
 
