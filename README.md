@@ -1,2 +1,156 @@
-# phantom-encryption-crypto
-PHANTOM: A post-quantum cryptographic algorithm implementation based on OTP and hash functions. Offers strong encryption with OTP-like security for arbitrary message lengths. Reference research paper: https://www.researchgate.net/publication/382455890_THE_POST-_QUANTUM_CRYPTOGRAPHIC_ALGORITHM_BASED_ON_OTP_CIPHER_AND_HASH_FUNCTIONS 
+# PHANTOM Cryptographic Algorithm
+
+## Overview
+
+PHANTOM is an implementation of a novel post-quantum cryptographic algorithm based on the research of Dr. Luu Hong Dung, as detailed in his paper "THE POST-QUANTUM CRYPTOGRAPHIC ALGORITHM BASED ON OTP CIPHER AND HASH FUNCTIONS". It combines OTP-like security with practical applicability for arbitrary message lengths, aiming to be resistant against quantum attacks. Normally in order for OTP to achieve perfect-secrecy, a the ciphertext must be equal or less than the key length.
+
+### Why PHANTOM is Different
+
+PHANTOM stands out due to its unique approach to encryption:
+
+- **Perfect Secrecy**: Inherits the "perfect secrecy" property from OTP, ensuring that there is no relationship between the plaintext and the ciphertext, making it impossible for an attacker to derive the plaintext from the ciphertext.
+- **Scalable for Large Messages**: Unlike OTP which requires a key as long as the message, PHANTOM can encrypt messages and files larger than the key size, making it practical for real-world use.(currently only tested (100-200MB input file sizes) 
+- **Quantum Resistance**: Designed to resist attacks even with the assistance of quantum computers, making it a strong candidate for post-quantum cryptography.
+- **Authentication and Integrity**: Incorporates a Message Authentication Code (MAC) to verify the origin and integrity of the encrypted messages, addressing a common limitation of traditional OTP.
+- **Replay Attack Prevention**: Uses a nonce for each encryption operation to prevent replay attacks, enhancing security in practical applications.
+
+This implementation of PHANTOM provides a practical realization of Dr. Luu's theoretical work with additional features to enable testing,study and further development. 
+
+## Features
+
+- **Post-quantum resistant encryption**: Secure against quantum computing attacks.
+- **OTP-like security properties**: Provides a high level of security similar to the One-Time Pad.
+- **Supports large messages**: Can encrypt messages/files larger than the key size.
+- **Message Authentication Code (MAC)**: Ensures the authenticity and integrity of messages.
+- **Nonce for replay attack prevention**: Uses a nonce to prevent replay attacks.
+- **File encryption and decryption**: Command-line tools for file encryption and decryption.
+
+## Performance
+
+- **Encryption**: 8-10 MB/s
+- **Decryption**: 0.6 MB/s
+
+( I have not spent much time on optimisations just yet, but currently using SHA256, and moving to Blake2 should yeild savings)
+
+## Installation
+
+### Prebuilt Binaries
+
+Prebuilt standalone binaries (with all dependencies included) are available for Debian 12 and should work on Ubuntu and other similar distributions.
+
+1. Download the prebuilt binaries from the [releases page](#).
+2. Extract the archive.
+3. Run the binaries directly.
+
+### Building from Source
+
+#### Prerequisites
+
+- OpenSSL (version 1.1.1 or newer)
+- C++17 compatible compiler (e.g., g++)
+- Make
+
+#### Steps
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/yourusername/phantom.git
+   cd phantom
+   ```
+
+2. Ensure OpenSSL is installed. On Debian/Ubuntu, you can install it using:
+
+   ```sh
+   sudo apt-get update
+   sudo apt-get install libssl-dev
+   ```
+
+3. Build the project:
+
+   ```sh
+   make
+   ```
+
+This will generate two executables: `encrypt` and `decrypt`.
+
+## Usage
+
+### Encryption
+
+To encrypt a file:
+
+```sh
+./encrypt <path to input file> <256-bit key in hex>
+```
+
+Example:
+
+```sh
+./encrypt message.txt aabbccddeeff00112233445566778899aabbccddeeff00112233445566778899
+```
+
+This will produce `ciphertext.json` in the same directory.
+
+### Decryption
+
+To decrypt a file:
+
+```sh
+./decrypt <path to ciphertext JSON file> <256-bit key in hex>
+```
+
+Example:
+
+```sh
+./decrypt ciphertext.json aabbccddeeff00112233445566778899aabbccddeeff00112233445566778899
+```
+
+This will produce the decrypted file with the prefix `decrypted_` in the same directory.
+
+## Dependencies
+
+- **OpenSSL**: Used for cryptographic functions (version 1.1.1 or newer)
+- **nlohmann/json**: JSON library for C++ (included as `json.hpp`)
+
+## Security Considerations
+
+- **Key Management**: Ensure your keys are kept secure and not reused.
+- **Nonce Usage**: Each encryption must use a unique nonce to prevent replay attacks.
+- **File Security**: Encrypted files should be transmitted and stored securely to prevent unauthorized access.
+
+## Contributing
+
+We welcome contributions to the PHANTOM project. Please fork the repository and submit pull requests for review.
+
+### Guidelines
+
+1. Follow the existing code style.
+2. Include tests for new features.
+3. Ensure all existing tests pass.
+
+## Research Background
+
+This implementation is based on the paper "THE POST-QUANTUM CRYPTOGRAPHIC ALGORITHM BASED ON OTP CIPHER AND HASH FUNCTIONS" by Dr. Luu Hong Dung. The original paper focuses on the theoretical aspects of a post-quantum cryptographic algorithm, while this implementation provides a practical realization with additional features such as file encryption, MAC for authentication, and nonce for replay attack prevention.
+
+### Key Principles from the Paper
+
+- **Perfect Secrecy**: According to Shannon's theory, if the key is a random bit sequence, there is no relationship between the plaintext and the ciphertext, achieving "perfect secrecy". This means that even with brute force, an attacker cannot find the plaintext from the ciphertext.
+- **Hash Function Utilization**: The algorithm uses hash functions to generate encryption keys, ensuring randomness and resistance to attacks. Even if the one-way property of the hash function is broken, the attacker cannot derive the secret key.
+- **Spoofing Attack Resistance**: Unlike traditional OTP, PHANTOM verifies the origin and integrity of the message using a MAC, preventing attackers from sending fake ciphertexts.
+
+You can find the original research paper here:
+[THE POST-QUANTUM CRYPTOGRAPHIC ALGORITHM BASED ON OTP CIPHER AND HASH FUNCTIONS](https://www.researchgate.net/publication/382455890_THE_POST-_QUANTUM_CRYPTOGRAPHIC_ALGORITHM_BASED_ON_OTP_CIPHER_AND_HASH_FUNCTIONS)
+
+## License
+
+This project is licensed under the CC BY 4.0 License
+
+## Contact
+
+For questions or collaboration, please reach out to jamie.brian.gilchrist@gmail.com
+
+## Acknowledgements
+
+- **Dr. Luu Hong Dung**: For the original research on which this implementation is based.
+- **Contributors**: Jamie Gilchrist
