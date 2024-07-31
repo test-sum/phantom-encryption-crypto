@@ -92,6 +92,10 @@ Example:
 
 This will produce `ciphertext.json` in the same directory.
 
+![image](https://github.com/user-attachments/assets/0df25fe2-1ea3-4408-bcb2-6586c9d7e1f8)
+
+
+
 ### Decryption
 
 To decrypt a file:
@@ -107,6 +111,11 @@ Example:
 ```
 
 This will produce the decrypted file with the prefix `decrypted_` in the same directory.
+
+![image](https://github.com/user-attachments/assets/b6fddfc4-a030-47e5-bfbc-ea9346dce98b)
+
+
+
 
 ## Dependencies
 
