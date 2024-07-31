@@ -54,7 +54,7 @@ Prebuilt standalone binaries (with all dependencies included) are available for 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/test-sum/phantom.git
+   git clone https://github.com/test-sum/phantom-encryption-crypto.git
    cd phantom
    ```
 
