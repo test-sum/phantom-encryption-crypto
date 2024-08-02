@@ -1,9 +1,10 @@
-#include "utils.hpp"
+#include "../include/utils.hpp"
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 #include <sstream>
 #include <iomanip>
-#include <set> // Add this line
+#include <stdexcept>
+#include <cstdint> // Include cstdint for uint8_t
 
 std::vector<uint8_t> hash_function(const std::vector<uint8_t>& data) {
     std::vector<uint8_t> hash(EVP_MAX_MD_SIZE);
@@ -60,6 +61,13 @@ std::vector<uint8_t> concat(const std::vector<uint8_t>& a, const std::vector<uin
     return result;
 }
 
+std::vector<uint8_t> add_padding(const std::vector<uint8_t>& data, size_t block_size) {
+    size_t padding_length = block_size - (data.size() % block_size);
+    std::vector<uint8_t> padded_data = data;
+    padded_data.insert(padded_data.end(), padding_length, static_cast<uint8_t>(padding_length));
+    return padded_data;
+}
+
 std::vector<uint8_t> remove_padding(const std::vector<uint8_t>& padded_data) {
     size_t padding_length = padded_data.back();
     if (padding_length > padded_data.size() || padding_length == 0) {
@@ -67,9 +75,3 @@ std::vector<uint8_t> remove_padding(const std::vector<uint8_t>& padded_data) {
     }
     return std::vector<uint8_t>(padded_data.begin(), padded_data.end() - padding_length);
 }
-
-bool nonce_used(const std::vector<uint8_t>& nonce, std::set<std::string>& used_nonces) {
-    std::string nonce_hex = bytes_to_hex(nonce);
-    return used_nonces.find(nonce_hex) != used_nonces.end();
-}
-
