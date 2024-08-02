@@ -2,9 +2,14 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <set>
-#include "encryption.hpp"
-#include "utils.hpp"
+#include <sstream>
+#include <iomanip>
+#include "../include/encryption.hpp"
+#include "../include/utils.hpp"
+#include "../include/json.hpp" // Include JSON library
+#include <cstdint> // Include cstdint for uint8_t
+
+using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
@@ -36,20 +41,8 @@ int main(int argc, char* argv[]) {
         C.push_back(hex_to_bytes(c));
     }
     std::vector<uint8_t> R = hex_to_bytes(ciphertext_json["R"]);
-    std::vector<uint8_t> mac = hex_to_bytes(ciphertext_json["MAC"]);
-    std::vector<uint8_t> nonce = hex_to_bytes(ciphertext_json["nonce"]);
 
-    std::cout << "Filename: " << filename << std::endl;
-    std::cout << "C_0: " << bytes_to_hex(C_0) << std::endl;
-    for (size_t i = 0; i < C.size(); ++i) {
-        std::cout << "C[" << i << "]: " << bytes_to_hex(C[i]) << std::endl;
-    }
-    std::cout << "Read R: " << bytes_to_hex(R) << std::endl;
-    std::cout << "Read MAC: " << bytes_to_hex(mac) << std::endl;
-    std::cout << "Read Nonce: " << bytes_to_hex(nonce) << std::endl;
-
-    std::set<std::string> used_nonces;
-    auto [decrypted_message, is_authentic] = decrypt(C_0, C, R, mac, nonce, key, used_nonces);
+    auto [decrypted_message, is_authentic] = decrypt(C_0, C, R, key);
 
     std::string output_file = "decrypted_" + filename;
     std::ofstream out(output_file, std::ios::binary);

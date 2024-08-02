@@ -2,8 +2,14 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include "encryption.hpp"
-#include "utils.hpp"
+#include <sstream>
+#include <iomanip>
+#include "../include/encryption.hpp"
+#include "../include/utils.hpp"
+#include "../include/json.hpp" 
+#include <cstdint> 
+
+using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
@@ -26,7 +32,7 @@ int main(int argc, char* argv[]) {
     }
     std::vector<uint8_t> plaintext((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
-    auto [C_0, C, R, mac, nonce] = encrypt(plaintext, key);
+    auto [C_0, C, R] = encrypt(plaintext, key);
 
     json ciphertext_json;
     ciphertext_json["filename"] = input_file.substr(input_file.find_last_of("/\\") + 1);
@@ -35,8 +41,6 @@ int main(int argc, char* argv[]) {
         ciphertext_json["C"].push_back(bytes_to_hex(c));
     }
     ciphertext_json["R"] = bytes_to_hex(R);
-    ciphertext_json["MAC"] = bytes_to_hex(mac);
-    ciphertext_json["nonce"] = bytes_to_hex(nonce);
 
     std::ofstream output_file("ciphertext.json");
     if (!output_file) {
