@@ -1,23 +1,13 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Iinclude -I.
-LDFLAGS = -L/home/admin/pqc/c++/openssl_static/lib -lssl -lcrypto -static-libgcc -static-libstdc++ -Wl,-Bstatic -Wl,-Bdynamic -ldl -lpthread
-
-SRCS = src/encryption.cpp src/utils.cpp
-OBJS = $(SRCS:.cpp=.o)
+CXXFLAGS = -std=c++17 -I./include
 
 all: encrypt decrypt
 
-encrypt: $(OBJS) src/main_encrypt.o
-	$(CXX) -o $@ $^ $(LDFLAGS)
+encrypt: src/main_encrypt.cpp src/encryption.cpp src/utils.cpp
+        $(CXX) $(CXXFLAGS) -o encrypt src/main_encrypt.cpp src/encryption.cpp src/utils.cpp -lssl -lcrypto
 
-decrypt: $(OBJS) src/main_decrypt.o
-	$(CXX) -o $@ $^ $(LDFLAGS)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+decrypt: src/main_decrypt.cpp src/encryption.cpp src/utils.cpp
+        $(CXX) $(CXXFLAGS) -o decrypt src/main_decrypt.cpp src/encryption.cpp src/utils.cpp -lssl -lcrypto
 
 clean:
-	rm -f $(OBJS) src/main_encrypt.o src/main_decrypt.o encrypt decrypt
-
-.PHONY: all clean
-
+        rm -f encrypt decrypt
