@@ -55,7 +55,7 @@ Prebuilt standalone binaries (with all dependencies included) are available for 
 
    ```sh
    git clone https://github.com/test-sum/phantom-encryption-crypto.git
-   cd phantom
+   cd phantom-encryption-crypto/
    ```
 
 2. Ensure OpenSSL is installed. On Debian/Ubuntu, you can install it using:
