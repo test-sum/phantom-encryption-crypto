@@ -22,7 +22,7 @@ This implementation of PHANTOM provides a practical realization of Dr. Luu's wor
 - **File encryption and decryption**: Command-line tools for file encryption and decryption.
 
 ## Performance
-
+On AWS EC" t2.small (1vCPU and 2GB Memory)
 - **Encryption**: 2.5 MB/s
 - **Decryption**: 2.5 MB/s
 
