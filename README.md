@@ -2,33 +2,29 @@
 
 ## Overview
 
-PHANTOM is an implementation of a novel post-quantum cryptographic algorithm based on the research of Dr. Luu Hong Dung, as detailed in his paper "THE POST-QUANTUM CRYPTOGRAPHIC ALGORITHM BASED ON OTP CIPHER AND HASH FUNCTIONS". It combines OTP-like security with practical applicability for arbitrary message lengths, aiming to be resistant against quantum attacks. Normally in order for OTP to achieve perfect-secrecy, a the ciphertext must be equal or less than the key length.
+PHANTOM is an implementation of a new post-quantum cryptographic algorithm based on the research of Dr. Luu Hong Dung, as detailed in his paper "THE POST-QUANTUM CRYPTOGRAPHIC ALGORITHM BASED ON OTP CIPHER AND HASH FUNCTIONS". It combines OTP-like security with practical applicability for arbitrary message lengths, aiming to be resistant against quantum attacks. Unlike traditional OTP which requires a key as long as the message, PHANTOM can encrypt messages and files larger than the key size, making it practical for real-world use.
 
 ### Why PHANTOM is Different
 
-PHANTOM stands out due to its unique approach to encryption:
+PHANTOM stands out:
 
 - **Perfect Secrecy**: Inherits the "perfect secrecy" property from OTP, ensuring that there is no relationship between the plaintext and the ciphertext, making it impossible for an attacker to derive the plaintext from the ciphertext.
-- **Scalable for Large Messages**: Unlike OTP which requires a key as long as the message, PHANTOM can encrypt messages and files larger than the key size, making it practical for real-world use.(currently only tested (100-200MB input file sizes) 
+- **Scalable for Large Messages**: Encrypts messages/files larger than the key size, making it practical for real-world use.
 - **Quantum Resistance**: Designed to resist attacks even with the assistance of quantum computers, making it a strong candidate for post-quantum cryptography.
-- **Authentication and Integrity**: Incorporates a Message Authentication Code (MAC) to verify the origin and integrity of the encrypted messages, addressing a common limitation of traditional OTP.
-- **Replay Attack Prevention**: Uses a nonce for each encryption operation to prevent replay attacks, enhancing security in practical applications.
 
-This implementation of PHANTOM provides a practical realization of Dr. Luu's theoretical work with additional features to enable testing,study and further development. 
+This implementation of PHANTOM provides a practical realization of Dr. Luu's work.
 
 ## Features
 
 - **Post-quantum resistant encryption**: Secure against quantum computing attacks.
 - **OTP-like security properties**: Provides a high level of security similar to the One-Time Pad.
 - **Supports large messages**: Can encrypt messages/files larger than the key size.
-- **Message Authentication Code (MAC)**: Ensures the authenticity and integrity of messages.
-- **Nonce for replay attack prevention**: Uses a nonce to prevent replay attacks.
 - **File encryption and decryption**: Command-line tools for file encryption and decryption.
 
 ## Performance
 
-- **Encryption**: 8-10 MB/s
-- **Decryption**: 0.6 MB/s
+- **Encryption**: 2.5 MB/s
+- **Decryption**: 2.5 MB/s
 
 ( I have not spent much time on optimisations just yet, but currently using SHA256, and moving to Blake2 should yeild savings)
 
@@ -58,11 +54,11 @@ Prebuilt standalone binaries (with all dependencies included) are available for 
    cd phantom-encryption-crypto/
    ```
 
-2. Ensure OpenSSL is installed. On Debian/Ubuntu, you can install it using:
+2. Ensure OpenSSL, Make and g++  is installed. On Debian/Ubuntu, you can install it using:
 
    ```sh
-   sudo apt-get update
-   sudo apt-get install libssl-dev
+   sudo apt update
+   sudo apt install git libssl-dev make g++
    ```
 
 3. Build the project:
@@ -156,9 +152,9 @@ This project is licensed under the CC BY 4.0 License
 
 ## Contact
 
-For questions or collaboration, please reach out to jamie.brian.gilchrist@gmail.com
+For questions or collaboration, please reach out to luuhongdung@mta.edu.vn and jamie.brian.gilchrist@gmail.com
 
 ## Acknowledgements
 
 - **Dr. Luu Hong Dung**: For the original research on which this implementation is based.
-- **Contributors**: Jamie Gilchrist
+- **Contributors to this repo**: Jamie Gilchrist
