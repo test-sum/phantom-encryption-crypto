@@ -17,7 +17,7 @@ This implementation of PHANTOM provides a practical realization of Dr. Luu's wor
 ## Features
 
 - **Post-quantum resistant encryption**: Secure against quantum computing attacks.
-- **OTP-like security properties**: Provides a high level of security similar to the One-Time Pad.
+- **OTP-like security properties**: Provides a high level of security inspired by the One-Time Pad.
 - **Supports large messages**: Can encrypt messages/files larger than the key size.
 - **File encryption and decryption**: Command-line tools for file encryption and decryption.
 
